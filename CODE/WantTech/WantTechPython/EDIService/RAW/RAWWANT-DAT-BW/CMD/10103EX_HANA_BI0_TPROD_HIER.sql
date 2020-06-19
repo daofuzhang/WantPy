@@ -1,0 +1,5 @@
+SELECT {edino} AS EDI_NO
+     , "PROD_HIER", "LANGU"
+     , REPLACE(REPLACE("TXTLG", CHAR(13), ''), CHAR(10), '') AS "TXTLG"
+FROM "SAPBHP"."/BI0/TPROD_HIER"
+;

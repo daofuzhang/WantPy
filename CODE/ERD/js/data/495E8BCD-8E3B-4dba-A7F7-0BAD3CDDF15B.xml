@@ -1,0 +1,3 @@
+tocTab[tocTab.length] = new Array("0.2.2.16:1", "", "«table» KA_WANTWANT_SYS_SALE_DATA", "EARoot/EA2/EA2/EA16/EA209.htm", "8C9E6706-8_table.png", "E18124", "0", "", "Class0","{8581E0AF-1338-4dd4-A642-DFA241E04FAF}");
+tocTab[tocTab.length] = new Array("0.2.2.16:2", "", "«table» KA_WANTWANT_SYS_INV_DATA", "EARoot/EA2/EA2/EA16/EA210.htm", "8C9E6706-8_table.png", "E18130", "0", "", "Class0","{DA3F2695-2E36-425b-AAB5-E6657F765964}");
+tocTab[tocTab.length] = new Array("0.2.2.16:3", "", "«table» KA_WANTWANT_SYS_ORDER_DATA", "EARoot/EA2/EA2/EA16/EA211.htm", "8C9E6706-8_table.png", "E18194", "0", "", "Class0","{1D3033D1-DFF2-439e-B98A-CDE68B497E5E}");

@@ -1,0 +1,24 @@
+{
+    "id": "EDIService.RAW",
+
+    "connectionList": [
+        {
+            "connectionID": "maria-dw-DWuser-DWWANT",
+            "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+            "db": "DWWANT"
+        }
+    ],
+
+    "intervalSeconds": 10,
+
+    "fileBlockSize": 2097152,
+
+    "messageSMTPServer": "tw-mail02.want-want.com",
+    "messageSMTPFrom": "Data.Center@want-want.com",
+    "messageSMTPSuccessToList": [
+        "zoe.hsu@want-want.com"
+    ],
+    "messageSMTPFailureToList": [
+        "zoe.hsu@want-want.com"
+    ]
+}

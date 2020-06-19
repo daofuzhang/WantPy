@@ -1,0 +1,5 @@
+SELECT {edino} AS EDI_NO
+     , "/BIC/ZSD_PXXL", "LANGU"
+     , REPLACE(REPLACE("TXTSH", CHAR(13), ''), CHAR(10), '') AS "TXTSH"
+FROM "SAPBHP"."/BIC/TZSD_PXXL"
+;

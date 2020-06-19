@@ -1,0 +1,12 @@
+tocTab[tocTab.length] = new Array("0.2.2.1:1", "", "«table» BW_SAPBHP_BI0_AFIAR_O0300", "EARoot/EA2/EA2/EA1/EA150.htm", "8C9E6706-8_table.png", "E17959", "0", "", "Class0","{A95AB9EA-7A87-4a72-A500-B091FFD6CDDA}");
+tocTab[tocTab.length] = new Array("0.2.2.1:2", "", "«table» BW_SAPBHP_BI0_PCUSTOMER", "EARoot/EA2/EA2/EA1/EA151.htm", "8C9E6706-8_table.png", "E17960", "0", "", "Class0","{BBE9B1C9-4970-4518-B67D-00DFCB7E2BA7}");
+tocTab[tocTab.length] = new Array("0.2.2.1:3", "", "«table» BW_SAPBHP_BI0_PCUST_SALES", "EARoot/EA2/EA2/EA1/EA152.htm", "8C9E6706-8_table.png", "E17957", "0", "", "Class0","{92FF0592-05CD-4fa5-9D2F-2F771EF8CEA4}");
+tocTab[tocTab.length] = new Array("0.2.2.1:4", "", "«table» BW_SAPBHP_BI0_PMATERIAL", "EARoot/EA2/EA2/EA1/EA153.htm", "8C9E6706-8_table.png", "E17954", "0", "", "Class0","{684FFC44-D5B1-46cb-B162-C651175E02E5}");
+tocTab[tocTab.length] = new Array("0.2.2.1:5", "", "«table» BW_SAPBHP_BI0_TC_CTR_AREA", "EARoot/EA2/EA2/EA1/EA154.htm", "8C9E6706-8_table.png", "E18035", "0", "", "Class0","{4FF49C79-F2F7-4009-82E1-0A2319E7C05D}");
+tocTab[tocTab.length] = new Array("0.2.2.1:6", "", "«table» BW_SAPBHP_BI0_TCUSTOMER", "EARoot/EA2/EA2/EA1/EA155.htm", "8C9E6706-8_table.png", "E17962", "0", "", "Class0","{ED9C307B-5835-42aa-84F0-FE680D8D35F5}");
+tocTab[tocTab.length] = new Array("0.2.2.1:7", "", "«table» BW_SAPBHP_BI0_TDISTR_CHAN", "EARoot/EA2/EA2/EA1/EA156.htm", "8C9E6706-8_table.png", "E17952", "0", "", "Class0","{2C5DCDB3-E578-4cf9-9974-03FFEE44AF70}");
+tocTab[tocTab.length] = new Array("0.2.2.1:8", "", "«table» BW_SAPBHP_BI0_TDIVISION", "EARoot/EA2/EA2/EA1/EA157.htm", "8C9E6706-8_table.png", "E17963", "0", "", "Class0","{FCAD7B34-3766-41c5-8070-F87D87B21838}");
+tocTab[tocTab.length] = new Array("0.2.2.1:9", "", "«table» BW_SAPBHP_BI0_TMATERIAL", "EARoot/EA2/EA2/EA1/EA158.htm", "8C9E6706-8_table.png", "E17950", "0", "", "Class0","{03C35F76-677E-4228-B393-5719389452AE}");
+tocTab[tocTab.length] = new Array("0.2.2.1:10", "", "«table» BW_SAPBHP_BI0_TPROD_HIER", "EARoot/EA2/EA2/EA1/EA159.htm", "8C9E6706-8_table.png", "E17961", "0", "", "Class0","{DEAE6841-140D-4f42-9A80-1D19F984F347}");
+tocTab[tocTab.length] = new Array("0.2.2.1:11", "", "«table» BW_SAPBHP_BI0_TSALESORG", "EARoot/EA2/EA2/EA1/EA160.htm", "8C9E6706-8_table.png", "E17953", "0", "", "Class0","{3BCB92EC-DC15-4f83-93B6-28DC464092F3}");
+tocTab[tocTab.length] = new Array("0.2.2.1:12", "", "«table» BW_SAPBHP_BI0_TSALES_OFF", "EARoot/EA2/EA2/EA1/EA161.htm", "8C9E6706-8_table.png", "E17955", "0", "", "Class0","{8D65392B-5789-4f11-B851-62F70763E893}");

@@ -1,0 +1,5 @@
+SELECT {edino} AS EDI_NO
+     , "CALMONTH", "CALDAY"
+     , "/BIC/ZWD_FLAG", "/BIC/ZWD_M2D", "/BIC/ZWD_M_SUM"
+FROM "SAPBHP"."/BIC/AZSD_O21900"
+;

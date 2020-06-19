@@ -1,0 +1,8 @@
+tocTab[tocTab.length] = new Array("0.4.1.2:1", "", "DC0021", "EARoot/EA4/EA1/EA2/EA373.htm", "175.png", "2491", "0", "", "Logical diagram0","{5A1CE641-AA3D-4d27-BC4F-530EF2B32172}");
+tocTab[tocTab.length] = new Array("0.4.1.2:2", "", "«table» DC0021_INVALID_RPT01_POSTING_SALES", "EARoot/EA4/EA1/EA2/EA376.htm", "8C9E6706-8_table.png", "E18184", "0", "", "Class0","{5A801542-6A83-41d8-BE5E-EC7F97EDA444}");
+tocTab[tocTab.length] = new Array("0.4.1.2:3", "", "«table» DC0021_INVALID_RPT01_SALES_COM_PROD", "EARoot/EA4/EA1/EA2/EA377.htm", "8C9E6706-8_table.png", "E18185", "0", "", "Class0","{F8EB6A37-6202-4f79-80B2-C9B9F45431E6}");
+tocTab[tocTab.length] = new Array("0.4.1.2:4", "", "«table» DC0021_CUST_SALES", "EARoot/EA4/EA1/EA2/EA378.htm", "8C9E6706-8_table.png", "E18156", "0", "", "Class0","{0F0598E8-2053-4733-8EA1-FCE60DC92EB7}");
+tocTab[tocTab.length] = new Array("0.4.1.2:5", "", "«table» DC0021_CUST_STMT", "EARoot/EA4/EA1/EA2/EA379.htm", "8C9E6706-8_table.png", "E18180", "0", "", "Class0","{45F58C5D-F318-446c-A2B6-DC781790C527}");
+tocTab[tocTab.length] = new Array("0.4.1.2:6", "", "«table» DC0021_REQ", "EARoot/EA4/EA1/EA2/EA380.htm", "8C9E6706-8_table.png", "E18183", "0", "", "Class0","{827AEE03-DC82-4954-8F4F-E8944BA25737}");
+tocTab[tocTab.length] = new Array("0.4.1.2:7", "", "«table» DC0021_SALES_RPT01", "EARoot/EA4/EA1/EA2/EA381.htm", "8C9E6706-8_table.png", "E18160", "0", "", "Class0","{201B0EF3-E6CE-4c8e-8B69-2C8324831E2D}");
+tocTab[tocTab.length] = new Array("0.4.1.2:8", "", "«table» DC0021_SALES_RPT01_HEAD", "EARoot/EA4/EA1/EA2/EA382.htm", "8C9E6706-8_table.png", "E18161", "0", "", "Class0","{C7D760D4-8925-4a96-83EC-530F6D19EB3C}");

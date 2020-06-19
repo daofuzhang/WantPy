@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("0.3.2.10:1", "", "EDI", "EARoot/EA3/EA2/EA10/EA356.htm", "175.png", "2385", "0", "", "Logical diagram0","{7EC26CEF-EC25-4d94-A231-FCCB941EBA75}");
+tocTab[tocTab.length] = new Array("0.3.2.10:2", "", "«table» EDI_FLOW", "EARoot/EA3/EA2/EA10/EA359.htm", "28.png", "E17343", "0", "", "Class0","{408FF266-A8F6-4ae5-BB12-5E6F57A001CD}");
+tocTab[tocTab.length] = new Array("0.3.2.10:3", "", "«table» EDI_FLOW_DWWANT_KA", "EARoot/EA3/EA2/EA10/EA360.htm", "8C9E6706-8_table.png", "E18186", "0", "", "Class0","{82C42A7D-3DB1-4e13-B70F-0F360138E1D6}");
+tocTab[tocTab.length] = new Array("0.3.2.10:4", "", "«table» EDI_JOB", "EARoot/EA3/EA2/EA10/EA361.htm", "28.png", "E17342", "0", "", "Class0","{29C6D74D-61F0-4bb6-924C-E12A75B82B75}");

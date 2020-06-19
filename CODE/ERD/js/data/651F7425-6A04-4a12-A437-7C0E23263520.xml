@@ -1,0 +1,2 @@
+tocTab[tocTab.length] = new Array("0.1.4.1.1:1", "", "«table» sys_inv_data", "EARoot/EA1/EA4/EA1/EA1/EA108.htm", "8C9E6706-8_table.png", "E18129", "0", "", "Class0","{110D93F9-5917-4188-AD0F-8376EBC5F4EC}");
+tocTab[tocTab.length] = new Array("0.1.4.1.1:2", "", "«table» sys_sale_data", "EARoot/EA1/EA4/EA1/EA1/EA109.htm", "8C9E6706-8_table.png", "E18128", "0", "", "Class0","{186B1085-8E67-4b3c-9990-EB417A883376}");

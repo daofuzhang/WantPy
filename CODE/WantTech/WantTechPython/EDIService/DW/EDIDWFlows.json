@@ -1,0 +1,1774 @@
+{
+    "ediID": "DW",
+
+    "flowList": [
+        {
+            "flowID" : "DWWANT-DAT-IWANT-SFA-STORE",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2018/06/10",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_IWANT_SFA_STORE_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10101EX_MARIA_IWANT_SALES_STORE_INFO",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "20101IM_MARIA_IWANT_SALES_STORE_INFO",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_STORE_INFO",
+                    "jobDependOn": "10101EX_MARIA_IWANT_SALES_STORE_INFO"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-DAT-KA",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/07/25",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_KA_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10101EX_MARIA_KA_WANTWANT_SYS_SALE_DATA",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "10102EX_MARIA_KA_WANTWANT_SYS_INV_DATA",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10101EX_MARIA_KA_WANTWANT_SYS_SALE_DATA"
+                },
+                {
+                    "jobID": "20101IM_MARIA_KA_WANTWANT_SYS_SALE_DATA",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_SYS_SALE_DATA",
+                    "jobDependOn": "10101EX_MARIA_KA_WANTWANT_SYS_SALE_DATA"
+                },
+                {
+                    "jobID": "20101IM_MARIA_KA_WANTWANT_SYS_INV_DATA",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_SYS_INV_DATA",
+                    "jobDependOn": "10102EX_MARIA_KA_WANTWANT_SYS_INV_DATA"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DWWANT_KA",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DWWANT-KA"                            
+                        }
+                    ],
+                    "jobDependOn": "20101IM_MARIA_KA_WANTWANT_SYS_INV_DATA"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-DAT-KA-ORDER",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2020/02/06",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_KA_ORDER_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10201EX_MARIA_KA_WANTWANT_SYS_ORDER_DATA",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "10202EX_MARIA_KA_WANTWANT_KA_ORDER_CHECK_RESULT",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10201EX_MARIA_KA_WANTWANT_SYS_ORDER_DATA"
+                },
+                {
+                    "jobID": "10203EX_MARIA_KA_WANTWANT_KA_ORDER_CHECK_DETAIL_RESULT",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10202EX_MARIA_KA_WANTWANT_KA_ORDER_CHECK_RESULT"
+                },
+                {
+                    "jobID": "10204EX_MARIA_KA_WANTWANT_KA_SAP_ORDER",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10203EX_MARIA_KA_WANTWANT_KA_ORDER_CHECK_DETAIL_RESULT"
+                },
+                {
+                    "jobID": "10205EX_MARIA_KA_WANTWANT_KA_SAP_ORDER_DETAIL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10204EX_MARIA_KA_WANTWANT_KA_SAP_ORDER"
+                },
+                {
+                    "jobID": "10206EX_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10205EX_MARIA_KA_WANTWANT_KA_SAP_ORDER_DETAIL"
+                },
+                {
+                    "jobID": "10207EX_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK_DETAIL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10206EX_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK"
+                },
+                {
+                    "jobID": "10208EX_MARIA_KA_WANTWANT_KA_SAP_SHIPPING_RETURN",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10207EX_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK_DETAIL"
+                },
+                {
+                    "jobID": "20201IM_MARIA_KA_WANTWANT_SYS_ORDER_DATA",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_SYS_ORDER_DATA",
+                    "jobDependOn": "10201EX_MARIA_KA_WANTWANT_SYS_ORDER_DATA"
+                },
+                {
+                    "jobID": "20202IM_MARIA_KA_WANTWANT_KA_ORDER_CHECK_RESULT",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_ORDER_CHECK_RESULT",
+                    "jobDependOn": "10202EX_MARIA_KA_WANTWANT_KA_ORDER_CHECK_RESULT"
+                },
+                {
+                    "jobID": "20203IM_MARIA_KA_WANTWANT_KA_ORDER_CHECK_DETAIL_RESULT",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_ORDER_CHECK_DETAIL_RESULT",
+                    "jobDependOn": "10203EX_MARIA_KA_WANTWANT_KA_ORDER_CHECK_DETAIL_RESULT"
+                },
+                {
+                    "jobID": "20204IM_MARIA_KA_WANTWANT_KA_SAP_ORDER",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_SAP_ORDER",
+                    "jobDependOn": "10204EX_MARIA_KA_WANTWANT_KA_SAP_ORDER"
+                },
+                {
+                    "jobID": "20205IM_MARIA_KA_WANTWANT_KA_SAP_ORDER_DETAIL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_SAP_ORDER_DETAIL",
+                    "jobDependOn": "10205EX_MARIA_KA_WANTWANT_KA_SAP_ORDER_DETAIL"
+                },
+                {
+                    "jobID": "20206IM_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_SAP_PIN_CHECK",
+                    "jobDependOn": "10206EX_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK"
+                },
+                {
+                    "jobID": "20207IM_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK_DETAIL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_SAP_PIN_CHECK_DETAIL",
+                    "jobDependOn": "10207EX_MARIA_KA_WANTWANT_KA_SAP_PIN_CHECK_DETAIL"
+                },
+                {
+                    "jobID": "20208IM_MARIA_KA_WANTWANT_KA_SAP_SHIPPING_RETURN",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "KA_WANTWANT_KA_SAP_SHIPPING_RETURN",
+                    "jobDependOn": "10208EX_MARIA_KA_WANTWANT_KA_SAP_SHIPPING_RETURN"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DWWANT_KA_ORDER",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DWWANT-KA-ORDER"                            
+                        }
+                    ],
+                    "jobDependOn": "20208IM_MARIA_KA_WANTWANT_KA_SAP_SHIPPING_RETURN"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-DAT-BW",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2018/11/10",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+        
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_BW_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10101EX_MARIA_BW_SAPBHP_BI0_TMATERIAL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "10102EX_MARIA_BW_SAPBHP_BI0_TDIVISION",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10101EX_MARIA_BW_SAPBHP_BI0_TMATERIAL"
+                },
+                {
+                    "jobID": "10103EX_MARIA_BW_SAPBHP_BI0_TPROD_HIER",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10102EX_MARIA_BW_SAPBHP_BI0_TDIVISION"
+                },
+                {
+                    "jobID": "10104EX_MARIA_BW_SAPBHP_BIC_TZCOOIC064",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10103EX_MARIA_BW_SAPBHP_BI0_TPROD_HIER"
+                },
+                {
+                    "jobID": "10105EX_MARIA_BW_SAPBHP_BIC_TZSD_PXXL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10104EX_MARIA_BW_SAPBHP_BIC_TZCOOIC064"
+                },
+                {
+                    "jobID": "10106EX_MARIA_BW_SAPBHP_BI0_PMATERIAL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10105EX_MARIA_BW_SAPBHP_BIC_TZSD_PXXL"
+                },
+                {
+                    "jobID": "10201EX_MARIA_BW_SAPBHP_BI0_TCUSTOMER",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10106EX_MARIA_BW_SAPBHP_BI0_PMATERIAL"
+                },
+                {
+                    "jobID": "10202EX_MARIA_BW_SAPBHP_BI0_TDISTR_CHAN",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10201EX_MARIA_BW_SAPBHP_BI0_TCUSTOMER"
+                },
+                {
+                    "jobID": "10203EX_MARIA_BW_SAPBHP_BI0_TSALESORG",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10202EX_MARIA_BW_SAPBHP_BI0_TDISTR_CHAN"
+                },
+                {
+                    "jobID": "10204EX_MARIA_BW_SAPBHP_BI0_TSALES_OFF",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10203EX_MARIA_BW_SAPBHP_BI0_TSALESORG"
+                },
+                {
+                    "jobID": "10205EX_MARIA_BW_SAPBHP_BIC_TZWWCHAN",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10204EX_MARIA_BW_SAPBHP_BI0_TSALES_OFF"
+                },  
+                {
+                    "jobID": "10206EX_MARIA_BW_SAPBHP_BIC_TZWW_COMPY",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10205EX_MARIA_BW_SAPBHP_BIC_TZWWCHAN"
+                },
+                {
+                    "jobID": "10207EX_MARIA_BW_SAPBHP_BI0_PCUSTOMER",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10206EX_MARIA_BW_SAPBHP_BIC_TZWW_COMPY"
+                },
+                {
+                    "jobID": "10208EX_MARIA_BW_SAPBHP_BI0_PCUST_SALES",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10207EX_MARIA_BW_SAPBHP_BI0_PCUSTOMER"
+                },
+                {
+                    "jobID": "10209EX_MARIA_BW_SAPBHP_BIC_PZCUS_WWID",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10208EX_MARIA_BW_SAPBHP_BI0_PCUST_SALES"
+                },
+                {
+                    "jobID": "10301EX_MARIA_BW_SAPBHP_BIC_AZSD_O2100",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10209EX_MARIA_BW_SAPBHP_BIC_PZCUS_WWID"
+                },
+                {
+                    "jobID": "10302EX_MARIA_BW_SAPBHP_BIC_AZWGZ_O0100",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10301EX_MARIA_BW_SAPBHP_BIC_AZSD_O2100"
+                },
+                {
+                    "jobID": "10303EX_MARIA_BW_SAPBHP_BI0_AFIAR_O0300",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10302EX_MARIA_BW_SAPBHP_BIC_AZWGZ_O0100"
+                },
+                {
+                    "jobID": "10304EX_MARIA_BW_SAPBHP_BIC_AZKZY_O0100",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10303EX_MARIA_BW_SAPBHP_BI0_AFIAR_O0300"
+                },
+                {
+                    "jobID": "19901EX_MARIA_BW_SAPBHP_BIC_AZSD_O21900",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10304EX_MARIA_BW_SAPBHP_BIC_AZKZY_O0100"
+                },
+                {
+                    "jobID": "19902EX_MARIA_BW_SAPBHP_BI0_TC_CTR_AREA",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "19901EX_MARIA_BW_SAPBHP_BIC_AZSD_O21900"
+                },
+                {
+                    "jobID": "20101IM_MARIA_BW_SAPBHP_BI0_TMATERIAL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TMATERIAL",
+                    "jobDependOn": "10101EX_MARIA_BW_SAPBHP_BI0_TMATERIAL"
+                },
+                {
+                    "jobID": "20102IM_MARIA_BW_SAPBHP_BI0_TDIVISION",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TDIVISION",
+                    "jobDependOn": "10102EX_MARIA_BW_SAPBHP_BI0_TDIVISION"
+                },
+                {
+                    "jobID": "20103IM_MARIA_BW_SAPBHP_BI0_TPROD_HIER",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TPROD_HIER",
+                    "jobDependOn": "10103EX_MARIA_BW_SAPBHP_BI0_TPROD_HIER"
+                },
+                {
+                    "jobID": "20104IM_MARIA_BW_SAPBHP_BIC_TZCOOIC064",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_TZCOOIC064",
+                    "jobDependOn": "10104EX_MARIA_BW_SAPBHP_BIC_TZCOOIC064"
+                },
+                {
+                    "jobID": "20105IM_MARIA_BW_SAPBHP_BIC_TZSD_PXXL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_TZSD_PXXL",
+                    "jobDependOn": "10105EX_MARIA_BW_SAPBHP_BIC_TZSD_PXXL"
+                },
+                {
+                    "jobID": "20106IM_MARIA_BW_SAPBHP_BI0_PMATERIAL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_PMATERIAL",
+                    "jobDependOn": "10106EX_MARIA_BW_SAPBHP_BI0_PMATERIAL"
+                },
+                {
+                    "jobID": "20201IM_MARIA_BW_SAPBHP_BI0_TCUSTOMER",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TCUSTOMER",
+                    "jobDependOn": "10201EX_MARIA_BW_SAPBHP_BI0_TCUSTOMER"
+                },
+                {
+                    "jobID": "20202IM_MARIA_BW_SAPBHP_BI0_TDISTR_CHAN",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TDISTR_CHAN",
+                    "jobDependOn": "10202EX_MARIA_BW_SAPBHP_BI0_TDISTR_CHAN"
+                },
+                {
+                    "jobID": "20203IM_MARIA_BW_SAPBHP_BI0_TSALESORG",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TSALESORG",
+                    "jobDependOn": "10203EX_MARIA_BW_SAPBHP_BI0_TSALESORG"
+                },
+                {
+                    "jobID": "20204IM_MARIA_BW_SAPBHP_BI0_TSALES_OFF",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TSALES_OFF",
+                    "jobDependOn": "10204EX_MARIA_BW_SAPBHP_BI0_TSALES_OFF"
+                },
+                {
+                    "jobID": "20205IM_MARIA_BW_SAPBHP_BIC_TZWWCHAN",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_TZWWCHAN",
+                    "jobDependOn": "10205EX_MARIA_BW_SAPBHP_BIC_TZWWCHAN"
+                },              
+                {
+                    "jobID": "20206IM_MARIA_BW_SAPBHP_BIC_TZWW_COMPY",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_TZWW_COMPY",
+                    "jobDependOn": "10206EX_MARIA_BW_SAPBHP_BIC_TZWW_COMPY"
+                },
+                {
+                    "jobID": "20207IM_MARIA_BW_SAPBHP_BI0_PCUSTOMER",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_PCUSTOMER",
+                    "jobDependOn": "10207EX_MARIA_BW_SAPBHP_BI0_PCUSTOMER"
+                },
+                {
+                    "jobID": "20208IM_MARIA_BW_SAPBHP_BI0_PCUST_SALES",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_PCUST_SALES",
+                    "jobDependOn": "10208EX_MARIA_BW_SAPBHP_BI0_PCUST_SALES"
+                },
+                {
+                    "jobID": "20209IM_MARIA_BW_SAPBHP_BIC_PZCUS_WWID",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_PZCUS_WWID",
+                    "jobDependOn": "10209EX_MARIA_BW_SAPBHP_BIC_PZCUS_WWID"
+                },
+                {
+                    "jobID": "20301IM_MARIA_BW_SAPBHP_BIC_AZSD_O2100",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZSD_O2100",
+                    "jobDependOn": "10301EX_MARIA_BW_SAPBHP_BIC_AZSD_O2100"
+                },
+                {
+                    "jobID": "20302IM_MARIA_BW_SAPBHP_BIC_AZWGZ_O0100",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZWGZ_O0100",
+                    "jobDependOn": "10302EX_MARIA_BW_SAPBHP_BIC_AZWGZ_O0100"
+                },
+                {
+                    "jobID": "20303IM_MARIA_BW_SAPBHP_BI0_AFIAR_O0300",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_AFIAR_O0300",
+                    "jobDependOn": "10303EX_MARIA_BW_SAPBHP_BI0_AFIAR_O0300"
+                },
+                {
+                    "jobID": "20304IM_MARIA_BW_SAPBHP_BIC_AZKZY_O0100",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZKZY_O0100",
+                    "jobDependOn": "10304EX_MARIA_BW_SAPBHP_BIC_AZKZY_O0100"
+                },
+                {
+                    "jobID": "29901IM_MARIA_BW_SAPBHP_BIC_AZSD_O21900",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZSD_O21900",
+                    "jobDependOn": "19901EX_MARIA_BW_SAPBHP_BIC_AZSD_O21900"
+                },
+                {
+                    "jobID": "29902IM_MARIA_BW_SAPBHP_BI0_TC_CTR_AREA",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BI0_TC_CTR_AREA",
+                    "jobDependOn": "19902EX_MARIA_BW_SAPBHP_BI0_TC_CTR_AREA"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DWWANT_MAIN",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DWWANT-MAIN"                            
+                        }
+                    ],
+                    "jobDependOn": "29902IM_MARIA_BW_SAPBHP_BI0_TC_CTR_AREA"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-DAT-IRPT",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2018/11/10",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_IRPT_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10101EX_MARIA_IRPT_SAPBW_ZBW_SF_PF_VIEW",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "10102EX_MARIA_IRPT_SAPBW_ZBW_SF_PF2_VIEW",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10101EX_MARIA_IRPT_SAPBW_ZBW_SF_PF_VIEW"
+                },
+                {
+                    "jobID": "10103EX_MARIA_IRPT_SAPBW_ZBW_SF_ZY_VIEW",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10102EX_MARIA_IRPT_SAPBW_ZBW_SF_PF2_VIEW"
+                },
+                {
+                    "jobID": "20101IM_MARIA_IRPT_SAPBW_ZBW_SF_PF_VIEW",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IRPT_SAPBW_ZBW_SF_PF_VIEW",
+                    "jobDependOn": "10101EX_MARIA_IRPT_SAPBW_ZBW_SF_PF_VIEW"
+                },
+                {
+                    "jobID": "20102IM_MARIA_IRPT_SAPBW_ZBW_SF_PF2_VIEW",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IRPT_SAPBW_ZBW_SF_PF2_VIEW",
+                    "jobDependOn": "10102EX_MARIA_IRPT_SAPBW_ZBW_SF_PF2_VIEW"
+                },
+                {
+                    "jobID": "20103IM_MARIA_IRPT_SAPBW_ZBW_SF_ZY_VIEW",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IRPT_SAPBW_ZBW_SF_ZY_VIEW",
+                    "jobDependOn": "10103EX_MARIA_IRPT_SAPBW_ZBW_SF_ZY_VIEW"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-DAT-IWANT",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2018/11/10",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_IWANT_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10101EX_MARIA_IWANT_SALES_DISTRICT",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "10102EX_MARIA_IWANT_SALES_AREA",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10101EX_MARIA_IWANT_SALES_DISTRICT"
+                },
+                {
+                    "jobID": "10103EX_MARIA_IWANT_SALES_COMPANY",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10102EX_MARIA_IWANT_SALES_AREA"
+                },
+                {
+                    "jobID": "10104EX_MARIA_IWANT_SALES_KA_SPECIAL_SYSTEM",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10103EX_MARIA_IWANT_SALES_COMPANY"
+                },
+                {
+                    "jobID": "10105EX_MARIA_IWANT_SALES_SMALL_MARKET",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10104EX_MARIA_IWANT_SALES_KA_SPECIAL_SYSTEM"
+                },
+                {
+                    "jobID": "10106EX_MARIA_IWANT_SALES_THIRD_CITY",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10105EX_MARIA_IWANT_SALES_SMALL_MARKET"
+                },
+                {
+                    "jobID": "10107EX_MARIA_IWANT_SALES_FORTH_CITY",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10106EX_MARIA_IWANT_SALES_THIRD_CITY"
+                },
+                {
+                    "jobID": "10108EX_MARIA_IWANT_SALES_FIFTH_CITY",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10107EX_MARIA_IWANT_SALES_FORTH_CITY"
+                },
+                {
+                    "jobID": "10109EX_MARIA_IWANT_SALES_MARKET_FULL_VIEW",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10108EX_MARIA_IWANT_SALES_FIFTH_CITY"
+                },
+                {
+                    "jobID": "10110EX_MARIA_IWANT_SALES_CHANNEL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10109EX_MARIA_IWANT_SALES_MARKET_FULL_VIEW"
+                },
+                {
+                    "jobID": "10111EX_MARIA_IWANT_SALES_CUSTOMER",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10110EX_MARIA_IWANT_SALES_CHANNEL"
+                },
+                {
+                    "jobID": "10112EX_MARIA_IWANT_SALES_EMP_POSITION_ORG_VIEW",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10111EX_MARIA_IWANT_SALES_CUSTOMER"
+                },
+                {
+                    "jobID": "10113EX_MARIA_IWANT_SALES_CUSTOMER_SMALL_MARKET",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10112EX_MARIA_IWANT_SALES_EMP_POSITION_ORG_VIEW"
+                },
+                {
+                    "jobID": "10114EX_MARIA_IWANT_SALES_CUS_SMALL_MARKET_PROD_LINE",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10113EX_MARIA_IWANT_SALES_CUSTOMER_SMALL_MARKET"
+                },
+                {
+                    "jobID": "10115EX_MARIA_IWANT_SALES_CUSTOMER_SALES",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10114EX_MARIA_IWANT_SALES_CUS_SMALL_MARKET_PROD_LINE"
+                },
+                {
+                    "jobID": "10116EX_MARIA_IWANT_SALES_CUS_SALES_MARKET_REL",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10115EX_MARIA_IWANT_SALES_CUSTOMER_SALES"
+                },
+                {
+                    "jobID": "20101IM_MARIA_IWANT_SALES_DISTRICT",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_DISTRICT",
+                    "jobDependOn": "10101EX_MARIA_IWANT_SALES_DISTRICT"
+                },
+                {
+                    "jobID": "20102IM_MARIA_IWANT_SALES_AREA",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_AREA",
+                    "jobDependOn": "10102EX_MARIA_IWANT_SALES_AREA"
+                },
+                {
+                    "jobID": "20103IM_MARIA_IWANT_SALES_COMPANY",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_COMPANY",
+                    "jobDependOn": "10103EX_MARIA_IWANT_SALES_COMPANY"
+                },
+                {
+                    "jobID": "20104IM_MARIA_IWANT_SALES_KA_SPECIAL_SYSTEM",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_KA_SPECIAL_SYSTEM",
+                    "jobDependOn": "10104EX_MARIA_IWANT_SALES_KA_SPECIAL_SYSTEM"
+                },
+                {
+                    "jobID": "20105IM_MARIA_IWANT_SALES_SMALL_MARKET",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_SMALL_MARKET",
+                    "jobDependOn": "10105EX_MARIA_IWANT_SALES_SMALL_MARKET"
+                },
+                {
+                    "jobID": "20106IM_MARIA_IWANT_SALES_THIRD_CITY",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_THIRD_CITY",
+                    "jobDependOn": "10106EX_MARIA_IWANT_SALES_THIRD_CITY"
+                },
+                {
+                    "jobID": "20107IM_MARIA_IWANT_SALES_FORTH_CITY",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_FORTH_CITY",
+                    "jobDependOn": "10107EX_MARIA_IWANT_SALES_FORTH_CITY"
+                },
+                {
+                    "jobID": "20108IM_MARIA_IWANT_SALES_FIFTH_CITY",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_FIFTH_CITY",
+                    "jobDependOn": "10108EX_MARIA_IWANT_SALES_FIFTH_CITY"
+                },
+                {
+                    "jobID": "20109IM_MARIA_IWANT_SALES_MARKET_FULL_VIEW",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_MARKET_FULL_VIEW",
+                    "jobDependOn": "10109EX_MARIA_IWANT_SALES_MARKET_FULL_VIEW"
+                },
+                {
+                    "jobID": "20110IM_MARIA_IWANT_SALES_CHANNEL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_CHANNEL",
+                    "jobDependOn": "10110EX_MARIA_IWANT_SALES_CHANNEL"
+                },
+                {
+                    "jobID": "20111IM_MARIA_IWANT_SALES_CUSTOMER",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_CUSTOMER",
+                    "jobDependOn": "10111EX_MARIA_IWANT_SALES_CUSTOMER"
+                },
+                {
+                    "jobID": "20112IM_MARIA_IWANT_SALES_EMP_POSITION_ORG_VIEW",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_EMP_POSITION_ORG_VIEW",
+                    "jobDependOn": "10112EX_MARIA_IWANT_SALES_EMP_POSITION_ORG_VIEW"
+                },
+                {
+                    "jobID": "20113IM_MARIA_IWANT_SALES_CUSTOMER_SMALL_MARKET",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_CUSTOMER_SMALL_MARKET",
+                    "jobDependOn": "10113EX_MARIA_IWANT_SALES_CUSTOMER_SMALL_MARKET"
+                },
+                {
+                    "jobID": "20114IM_MARIA_IWANT_SALES_CUS_SMALL_MARKET_PROD_LINE",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_CUS_SMALL_MARKET_PROD_LINE",
+                    "jobDependOn": "10114EX_MARIA_IWANT_SALES_CUS_SMALL_MARKET_PROD_LINE"
+                },
+                {
+                    "jobID": "20115IM_MARIA_IWANT_SALES_CUSTOMER_SALES",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_CUSTOMER_SALES",
+                    "jobDependOn": "10115EX_MARIA_IWANT_SALES_CUSTOMER_SALES"
+                },
+                {
+                    "jobID": "20116IM_MARIA_IWANT_SALES_CUS_SALES_MARKET_REL",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "IWANT_SALES_CUS_SALES_MARKET_REL",
+                    "jobDependOn": "10116EX_MARIA_IWANT_SALES_CUS_SALES_MARKET_REL"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-DAT-BW-HR",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2018/05/16",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+        
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_TRUNCATE_TABLE",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "SP_DAT_BW_HR_00001_TRUNCATE_TABLE",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "10101EX_MARIA_BW_SAPBHP_BIC_AZHR_O7100",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "00001SP_MARIA_TRUNCATE_TABLE"
+                },
+                {
+                    "jobID": "10102EX_MARIA_BW_SAPBHP_BIC_AZHR_O7200",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10101EX_MARIA_BW_SAPBHP_BIC_AZHR_O7100"
+                },
+                {
+                    "jobID": "10103EX_MARIA_BW_SAPBHP_BIC_AZHR_O7300",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": "10102EX_MARIA_BW_SAPBHP_BIC_AZHR_O7200"
+                },
+                {
+                    "jobID": "20101IM_MARIA_BW_SAPBHP_BIC_AZHR_O7100",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZHR_O7100",
+                    "jobDependOn": "10101EX_MARIA_BW_SAPBHP_BIC_AZHR_O7100"
+                },
+                {
+                    "jobID": "20102IM_MARIA_BW_SAPBHP_BIC_AZHR_O7200",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZHR_O7200",
+                    "jobDependOn": "10102EX_MARIA_BW_SAPBHP_BIC_AZHR_O7200"
+                },
+                {
+                    "jobID": "20103IM_MARIA_BW_SAPBHP_BIC_AZHR_O7300",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZHR_O7300",
+                    "jobDependOn": "10103EX_MARIA_BW_SAPBHP_BIC_AZHR_O7300"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DWWANT_HR",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DWWANT-HR"                            
+                        }
+                    ],
+                    "jobDependOn": "20103IM_MARIA_BW_SAPBHP_BIC_AZHR_O7300"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-MAIN",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/06/17",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": -1,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_CM",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30101_CM",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "30102SP_MARIA_ORG",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30102_ORG",
+                    "jobDependOn": "30101SP_MARIA_CM"
+                },
+                {
+                    "jobID": "30103SP_MARIA_PROD",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30103_PROD",
+                    "jobDependOn": "30102SP_MARIA_ORG"
+                },
+                {
+                    "jobID": "30105SP_MARIA_CUST",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30105_CUST",
+                    "jobDependOn": "30103SP_MARIA_PROD"
+                },
+                {
+                    "jobID": "30107SP_MARIA_ORDR",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30107_ORDR",
+                    "jobDependOn": "30105SP_MARIA_CUST"
+                },
+                {
+                    "jobID": "30108SP_MARIA_TRAS",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30108_TRAS",
+                    "jobDependOn": "30107SP_MARIA_ORDR"
+                },
+                {
+                    "jobID": "30109SP_MARIA_FI",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_MAIN_30109_FI",
+                    "jobDependOn": "30108SP_MARIA_TRAS"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DMMDL_DC0021",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DMMDL-DC0021"                            
+                        }
+                    ],
+                    "jobDependOn": "30109SP_MARIA_FI"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-HR",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/08/06",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": -1,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_HR_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_CM",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_HR_30101_CM",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "30102SP_MARIA_ORG",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_HR_30102_ORG",
+                    "jobDependOn": "30101SP_MARIA_CM"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DMMDL_DC0022",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DMMDL-DC0022"                            
+                        }
+                    ],
+                    "jobDependOn": "30102SP_MARIA_ORG"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-KA",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/07/26",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_KA_POS",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_30101_KA_POS",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "30102SP_MARIA_KA_INV",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_30102_KA_INV",
+                    "jobDependOn": "30101SP_MARIA_KA_POS"
+                },
+                {
+                    "jobID": "30201SP_MARIA_KA_D",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_30201_KA_D",
+                    "jobDependOn": "30102SP_MARIA_KA_INV"
+                },
+                {
+                    "jobID": "30202SP_MARIA_KA_W",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_30202_KA_W",
+                    "jobDependOn": "30201SP_MARIA_KA_D"
+                },
+                {
+                    "jobID": "30203SP_MARIA_KA_M",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_30203_KA_M",
+                    "jobDependOn": "30202SP_MARIA_KA_W"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DMMDL_DC0024",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DMMDL-DC0024"                            
+                        }
+                    ],
+                    "jobDependOn": "30203SP_MARIA_KA_M"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-KA-ORDER",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2020/02/06",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_ORDR_KA_SYS",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_30101_ORDR_KA_SYS",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "30102SP_MARIA_TRAS_KA_ORDR_CHECK",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_30102_TRAS_KA_ORDR_CHECK",
+                    "jobDependOn": "30101SP_MARIA_ORDR_KA_SYS"
+                },
+                {
+                    "jobID": "30103SP_MARIA_TRAS_KA_ORDR_OPEN",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_30103_TRAS_KA_ORDR_OPEN",
+                    "jobDependOn": "30102SP_MARIA_TRAS_KA_ORDR_CHECK"
+                },
+                {
+                    "jobID": "30104SP_MARIA_TRAS_KA_ORDR_APPD",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_30104_TRAS_KA_ORDR_APPD",
+                    "jobDependOn": "30103SP_MARIA_TRAS_KA_ORDR_OPEN"
+                },
+                {
+                    "jobID": "30105SP_MARIA_TRAS_KA_ORDR_SHIP",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_30105_TRAS_KA_ORDR_SHIP",
+                    "jobDependOn": "30104SP_MARIA_TRAS_KA_ORDR_APPD"
+                },
+                {
+                    "jobID": "30106SP_MARIA_TRAS_KA_ORDR",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_KA_ORDER_30106_TRAS_KA_ORDR",
+                    "jobDependOn": "30105SP_MARIA_TRAS_KA_ORDR_SHIP"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DMMDL_DC0024_ORDER",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DMMDL-DC0024-ORDER"                            
+                        }
+                    ],
+                    "jobDependOn": "30106SP_MARIA_TRAS_KA_ORDR"
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-SYS",
+        
+            "scheduleFrequency": "Daily",
+            "scheduleStartDate": "2019/08/06",
+            "scheduleStartTime": "03:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "90101PY_MAIL_SERVER_NOTICE",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": ""
+                }
+            ]
+        },
+        {
+            "flowID" : "DWWANT-MANUALLY",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2018/11/10",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "connection": "2RAW-RAWuser@tpe-centos7-maria10-raw",
+                    "db": "RAWWANT"
+                },
+                {
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "RAWWANT"
+                }
+            ],
+        
+            "jobList": [
+                {
+                    "jobID": "10301EX_MARIA_BW_SAPBHP_BIC_AZSD_O2100",
+                    "jobType": "MariaDBExport",
+                    "connectionID": "maria-raw-RAWuser-RAWWANT",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "20301IM_MARIA_BW_SAPBHP_BIC_AZSD_O2100",
+                    "jobType": "MariaDBImport",
+                    "connectionID": "maria-dw-DWuser-RAWWANT",
+                    "objectName": "BW_SAPBHP_BIC_AZSD_O2100",
+                    "jobDependOn": "10301EX_MARIA_BW_SAPBHP_BIC_AZSD_O2100"
+                }
+            ]
+        },
+        {
+            "flowID" : "DMMDL-DC0024",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/07/29",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_INVALID_RPT01",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_30101_INVALID_RPT01",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "80101PY_MAIL_INVALID_RPT01",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30101SP_MARIA_INVALID_RPT01"
+                },
+                {
+                    "jobID": "90101EDI_TRIG_DW_DMMDL_DC0024_RPT",
+                    "jobType": "EDITrigNextFlow",
+                    "parameterList": [
+                        {
+                            "parameterID": "EDI_ID",
+                            "parameterValue": "DW"
+                        },
+                        {
+                            "parameterID": "EDI_FLOW_ID",
+                            "parameterValue": "DMMDL-DC0024-RPT"                            
+                        }
+                    ],
+                    "jobDependOn": "80101PY_MAIL_INVALID_RPT01"
+                }
+            ]
+        },
+        {
+            "flowID" : "DMMDL-DC0024-RPT",
+            
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/11/05",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "30101SP_MARIA_STORE_MATL_D",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_RPT_30101_STORE_MATL_D",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30301SP_MARIA_POS_RPT01",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_RPT_30301_POS_RPT01",
+                    "jobDependOn": "30101SP_MARIA_STORE_MATL_D"
+                },
+                {
+                    "jobID": "30501SP_MARIA_STORE_MATL_M",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_RPT_30501_STORE_MATL_M",
+                    "jobDependOn": "30301SP_MARIA_POS_RPT01"
+                },
+                {
+                    "jobID": "80101PY_MAIL_STORE_MATL_D",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30101SP_MARIA_STORE_MATL_D"
+                },
+                {
+                    "jobID": "80301PY_MAIL_POS_RPT01_SYSTEM_STORE",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30301SP_MARIA_POS_RPT01"
+                },
+                {
+                    "jobID": "80302PY_MAIL_POS_RPT01_COM_STORE",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30301SP_MARIA_POS_RPT01"
+                },
+                {
+                    "jobID": "80303PY_MAIL_POS_RPT01_SYSTEM_PRODH1",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30301SP_MARIA_POS_RPT01"
+                },
+                {
+                    "jobID": "80304PY_MAIL_POS_RPT01_COM_PRODH1",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30301SP_MARIA_POS_RPT01"
+                },
+                {
+                    "jobID": "80501PY_MAIL_STORE_MATL_M",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30501SP_MARIA_STORE_MATL_M"
+                }
+            ]
+        },
+        {
+            "flowID" : "DMMDL-DC0024-ORDER",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2020/02/27",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_ORDER_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_TRAS",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_ORDER_30101_TRAS",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "30102SP_MARIA_SYS",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0024_ORDER_30102_SYS",
+                    "jobDependOn": "30101SP_MARIA_TRAS"
+                },
+                {
+                    "jobID": "80101PY_MAIL_ORDR_D",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30102SP_MARIA_SYS"
+                }
+            ]
+        },
+        {
+            "flowID" : "DMMDL-DC0022",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/08/06",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0022_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_EMP_SALES",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0022_30101_EMP_SALES",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "90101PY_MAIL_EMP_SALES",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30101SP_MARIA_EMP_SALES"
+                }
+            ]
+        },
+        {
+            "flowID" : "DMMDL-DC0021",
+        
+            "scheduleFrequency": "Continuity",
+            "scheduleStartDate": "2019/08/06",
+            "scheduleStartTime": "00:00:00.000",
+            "scheduleDataDelay": 0,
+        
+            "pathBAK": "{flowid}/{edidate}/{editime}/BAK/",
+            "pathCMD": "{flowid}/CMD/{jobid}.sql",
+            "pathSCRIPT": "{flowid}/SCRIPT/{jobid}.py",
+            "pathSRC": "{flowid}/{edidate}/{editime}/SRC/{jobid}.dat",
+            "pathRES": "{flowid}/{edidate}/{editime}/RES/{jobid}.dat",
+            "pathBAD": "{flowid}/{edidate}/{editime}/BAD/{jobid}.bad",
+            "pathLOG": "{flowid}/{edidate}/{editime}/LOG/{jobid}.log",
+        
+            "connectionList": [
+                {
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "connection": "3DW-DWuser@tpe-centos7-maria10-dw",
+                    "db": "DWWANT"
+                }
+            ],
+
+            "jobList": [
+                {
+                    "jobID": "00001SP_MARIA_DELETE_DATA",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0021_00001_DELETE_DATA",
+                    "jobDependOn": ""
+                },
+                {
+                    "jobID": "30101SP_MARIA_CUST_SALES",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0021_30101_CUST_SALES",
+                    "jobDependOn": "00001SP_MARIA_DELETE_DATA"
+                },
+                {
+                    "jobID": "30102SP_MARIA_CUST_STMT",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0021_30102_CUST_STMT",
+                    "jobDependOn": "30101SP_MARIA_CUST_SALES"
+                },
+                {
+                    "jobID": "30103SP_MARIA_REQ",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0021_30103_REQ",
+                    "jobDependOn": "30102SP_MARIA_CUST_STMT"
+                },
+                {
+                    "jobID": "30201SP_MARIA_SALES_RPT01",
+                    "jobType": "MariaDBExecuteProcedures",
+                    "connectionID": "maria-dw-DWuser-DWWANT",
+                    "objectName": "SP_DC0021_30201_SALES_RPT01",
+                    "jobDependOn": "30102SP_MARIA_CUST_STMT"
+                },
+                {
+                    "jobID": "90101PY_MAIL_CUST_SALES",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30101SP_MARIA_CUST_SALES"
+                },
+                {
+                    "jobID": "90102PY_MAIL_CUST_STMT",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30102SP_MARIA_CUST_STMT"
+                },
+                {
+                    "jobID": "90103PY_MAIL_REQ",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30103SP_MARIA_REQ"
+                },
+                {
+                    "jobID": "90201PY_MAIL_SALES_RPT01",
+                    "jobType": "PythonExecute",
+                    "jobDependOn": "30201SP_MARIA_SALES_RPT01"
+                }
+            ]
+        }
+    ]
+}

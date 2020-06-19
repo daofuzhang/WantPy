@@ -1,0 +1,22 @@
+SELECT '"' || {edino} || '"'
+   || ',"' || USER_ID || '"'
+   || ',"' || REPLACE(REPLACE(CUSTOMER_ID, CHR(13)), CHR(10)) || '"'
+   || ',"' || CREDIT_ID || '"'
+   || ',"' || TO_CHAR(START_TIME,'YYYYMMDD') || '"'
+   || ',"' || TO_CHAR(END_TIME,'YYYYMMDD') || '"'
+   || ',"' || COMPANY_ID || '"'
+   || ',"' || PROD_GROUP_ID || '"'
+   || ',"' || THIRD_CITY_ID || '"'
+   || ',"' || TO_CHAR(CREATE_DATE,'YYYYMMDD') || '"'
+   || ',"' || CREATE_USER || '"'
+   || ',"' || TO_CHAR(UPDATE_DATE,'YYYYMMDD') || '"'
+   || ',"' || UPDATE_USER || '"'
+   || ',"' || STATUS || '"'
+   || ',"' || POS_TYPE_ID || '"'
+   || ',"' || POS_TYPE_NAME || '"'
+   || ',"' || NVL(MARKET_RELATION_ID, -99999) || '"'
+   || ',"' || POS_NAME || '"'
+   || ',"' || EMP_COMPANY_ID || '"'
+   || ',"' || EMP_BRANCH_ID || '"' AS CONTENT
+FROM SALES.CUSTOMER_SALES
+;

@@ -1,0 +1,7 @@
+tocTab[tocTab.length] = new Array("0.2.2.17:1", "", "«table» KA_WANTWANT_KA_ORDER_CHECK_RESULT", "EARoot/EA2/EA2/EA17/EA213.htm", "8C9E6706-8_table.png", "E18195", "0", "", "Class0","{1907DC29-AE97-4345-9628-3F0D10184415}");
+tocTab[tocTab.length] = new Array("0.2.2.17:2", "", "«table» KA_WANTWANT_KA_ORDER_CHECK_DETAIL_RESULT", "EARoot/EA2/EA2/EA17/EA214.htm", "8C9E6706-8_table.png", "E18196", "0", "", "Class0","{E60BCEA2-1BD9-46bc-BD19-C06B03392CDF}");
+tocTab[tocTab.length] = new Array("0.2.2.17:3", "", "«table» KA_WANTWANT_KA_SAP_ORDER", "EARoot/EA2/EA2/EA17/EA215.htm", "8C9E6706-8_table.png", "E18197", "0", "", "Class0","{3DE50E11-9C39-48f4-9DBD-69D427B184A9}");
+tocTab[tocTab.length] = new Array("0.2.2.17:4", "", "«table» KA_WANTWANT_KA_SAP_ORDER_DETAIL", "EARoot/EA2/EA2/EA17/EA216.htm", "8C9E6706-8_table.png", "E18198", "0", "", "Class0","{F0E32900-A85C-4c3b-8261-2B14745F1001}");
+tocTab[tocTab.length] = new Array("0.2.2.17:5", "", "«table» KA_WANTWANT_KA_SAP_PIN_CHECK", "EARoot/EA2/EA2/EA17/EA217.htm", "8C9E6706-8_table.png", "E18199", "0", "", "Class0","{09D49ED8-F893-41ce-A479-F3B6D052E770}");
+tocTab[tocTab.length] = new Array("0.2.2.17:6", "", "«table» KA_WANTWANT_KA_SAP_PIN_CHECK_DETAIL", "EARoot/EA2/EA2/EA17/EA218.htm", "8C9E6706-8_table.png", "E18200", "0", "", "Class0","{8F8CC2E3-99D5-4941-B763-F93C86C813E8}");
+tocTab[tocTab.length] = new Array("0.2.2.17:7", "", "«table» KA_WANTWANT_KA_SAP_SHIPPING_RETURN", "EARoot/EA2/EA2/EA17/EA219.htm", "8C9E6706-8_table.png", "E18201", "0", "", "Class0","{C3459C78-D393-44e6-B816-F51B27C59B72}");

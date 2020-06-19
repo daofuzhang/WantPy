@@ -1,0 +1,1 @@
+open /Users/80005096/Applications/Google\ Chrome.app --args --allow-file-access-from-files "index.htm"

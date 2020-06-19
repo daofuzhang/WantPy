@@ -1,0 +1,81 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "RAW",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
+            "pythonPath": "${config:python.pythonPath}",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}/RAW/",
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "RedirectOutput"
+            ],
+            "env": {
+                "PYTHONPATH": "/Users/zoehsu/Projects/WantTech/WantTechPython/WantTech",
+                "PATH": "/Library/Frameworks/Python.framework/Versions/3.6/bin",
+                "PYTHONDONTWRITEBYTECODE": true,
+                "DYLD_LIBRARY_PATH": "/Applications/oracle/instantclient_12_2/lib"
+            }
+        },
+        {
+            "name": "DW",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
+            "pythonPath": "${config:python.pythonPath}",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}/DW/",
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "RedirectOutput"
+            ],
+            "env": {
+                "PYTHONPATH": "/Users/zoehsu/Projects/WantTech/WantTechPython/WantTech",
+                "PATH": "/Library/Frameworks/Python.framework/Versions/3.6/bin",
+                "PYTHONDONTWRITEBYTECODE": true,
+                "DYLD_LIBRARY_PATH": "/Applications/oracle/instantclient_12_2/lib"
+            }
+        },
+        {
+            "name": "DM",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
+            "pythonPath": "${config:python.pythonPath}",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}/DM/",
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "RedirectOutput"
+            ],
+            "env": {
+                "PYTHONPATH": "/Users/zoehsu/Projects/WantTech/WantTechPython/WantTech",
+                "PATH": "/Library/Frameworks/Python.framework/Versions/3.6/bin",
+                "PYTHONDONTWRITEBYTECODE": true,
+                "DYLD_LIBRARY_PATH": "/Applications/oracle/instantclient_12_2/lib"
+            }
+        },
+        {
+            "name": "AP1",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": true,
+            "pythonPath": "${config:python.pythonPath}",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}/AP1/",
+            "envFile": "${workspaceRoot}/.env",
+            "debugOptions": [
+                "RedirectOutput"
+            ],
+            "env": {
+                "PYTHONPATH": "/Users/zoehsu/Projects/WantTech/WantTechPython/WantTech",
+                "PATH": "/Library/Frameworks/Python.framework/Versions/3.6/bin",
+                "PYTHONDONTWRITEBYTECODE": true,
+                "DYLD_LIBRARY_PATH": "/Applications/oracle/instantclient_12_2/lib"
+            }
+        }
+    ]
+}

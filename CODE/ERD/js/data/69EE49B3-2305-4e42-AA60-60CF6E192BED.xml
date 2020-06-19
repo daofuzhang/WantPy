@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("0.2.2.7:1", "", "«table» IWANT_SALES_CUS_SALES_MARKET_REL", "EARoot/EA2/EA2/EA7/EA186.htm", "8C9E6706-8_table.png", "E17986", "0", "", "Class0","{506383A2-143F-4d42-BFC2-5A4A5BF8799E}");
+tocTab[tocTab.length] = new Array("0.2.2.7:2", "", "«table» IWANT_SALES_CUS_SMALL_MARKET_PROD_LINE", "EARoot/EA2/EA2/EA7/EA187.htm", "8C9E6706-8_table.png", "E17987", "0", "", "Class0","{8E07FCB3-9344-4bf2-A253-80D9FD173DB0}");
+tocTab[tocTab.length] = new Array("0.2.2.7:3", "", "«table» IWANT_SALES_CUSTOMER", "EARoot/EA2/EA2/EA7/EA188.htm", "8C9E6706-8_table.png", "E17984", "0", "", "Class0","{1E60BF52-85B0-43e6-B1F8-E81301CD0E27}");
+tocTab[tocTab.length] = new Array("0.2.2.7:4", "", "«table» IWANT_SALES_CUSTOMER_SALES", "EARoot/EA2/EA2/EA7/EA189.htm", "8C9E6706-8_table.png", "E17985", "0", "", "Class0","{35FEB6CB-A3B1-498e-A455-14174EF7D5E4}");
+tocTab[tocTab.length] = new Array("0.2.2.7:5", "", "«table» IWANT_SALES_CUSTOMER_SMALL_MARKET", "EARoot/EA2/EA2/EA7/EA190.htm", "8C9E6706-8_table.png", "E17983", "0", "", "Class0","{124A8C98-2DB3-4d92-A66A-D66202C594C6}");
